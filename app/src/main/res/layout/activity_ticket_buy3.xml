@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context=".ticket.TicketBuy3Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:text="北京"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top|center_horizontal"
+                android:text="10:00"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:text="D5"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"/>
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:text="2022-05-30 (1天)"
+                android:gravity="top|center_horizontal"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:text="北京"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top|center_horizontal"
+                android:text="10:00"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:text="无座（39张）"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:gravity="center_vertical|left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:text="￥189.5"
+            android:textColor="#FF8637"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:gravity="center_vertical|right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAddPassanger"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="+添加乘车人"
+        android:textColor="#C1E66705"
+        android:background="#D6E3EF"
+        android:gravity="center_vertical"
+        >
+
+    </TextView>
+    <ListView
+        android:id="@+id/lvTicket3Passanger"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </ListView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="100"
+            android:textColor="@color/white"
+            android:text="订单金额:$0.0元"
+            android:background="@color/blue"
+            android:gravity="center_vertical"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="60dp"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_press_orange"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

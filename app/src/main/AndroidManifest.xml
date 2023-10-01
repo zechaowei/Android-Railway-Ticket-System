@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/icon_train"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RailwayTicketingSystem"
+        tools:targetApi="31">
+        <activity
+            android:name=".my.TicketBuy3ChooiceConcat"
+            android:exported="false" />
+        <activity
+            android:name=".ticket.TicketBuy3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ticket.TicketBuy2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ticket.StationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".my.ConcatEditActivity"
+            android:exported="false"
+            android:label="修改联系人"/>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PasswordActivity"
+            android:exported="false"
+            android:label="我的密码"/>
+        <activity
+            android:name=".AccountActivity"
+            android:exported="false"
+            android:label="我的账户"/>
+        <activity
+            android:name=".my.ConcatActivity"
+            android:exported="false"
+            android:label="联系人"/>
+        <activity
+            android:name=".MyActivity"
+            android:exported="true"
+            android:label="我的">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+    </application>
+
+    <!--  申请网络权限，静态申请，在安装app的时候一次授权，一直使用  -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>

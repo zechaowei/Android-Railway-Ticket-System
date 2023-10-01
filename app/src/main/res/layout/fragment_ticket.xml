@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:text="出发城市"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="到达城市"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/gray" />
+
+    </LinearLayout>
+
+    <!--    第二行 具体车次-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvStationFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="北京"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/right_32" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivWf"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/wf" />
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvStationTo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="西安"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/right_32" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--第三行 出发时间-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:text="出发时间"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#A6A0A0" />
+
+        <TextView
+            android:id="@+id/tvFromStartTime"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="6"
+            android:gravity="center_vertical|right"
+            android:text="2023/09/30 周六"
+            android:textAppearance="?android:textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_press_blue"
+        android:text="查询"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+
+    <!--    第五个 查询历史-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp">
+
+        <!--    历史内容 出发城市、到达城市-->
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:text="查询历史"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="北京-----上海"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="郑州-----广州"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/train_test" />
+
+
+</LinearLayout>

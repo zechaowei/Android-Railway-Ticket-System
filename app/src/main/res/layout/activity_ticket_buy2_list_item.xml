@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    tools:context=".ticket.TicketBuy2Activity"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tvSeatName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="二等座"
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tvSeatNum"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:text="39张"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:gravity="center" />
+
+
+    <TextView
+        android:id="@+id/tvSeatPrice"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:text="￥188.0"
+        android:gravity="center|right"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/yellow" />
+
+
+    <Button
+        android:id="@+id/btnBootTicket"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:text="预定"
+        android:background="@drawable/btn_press_blue"
+        android:textColor="@color/white" />
+
+</LinearLayout>

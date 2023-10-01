@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="5dip"
+    android:textColor="#3399FF"
+    android:textSize="70sp"/>
+
+    <!--用于展示字母的背景板大小-->
+    <!--android:maxWidth="80dip"-->
+    <!--android:minWidth="80dip"-->
+    <!--用于展示字母的背景色-->
+    <!--android:background="#ffffff"-->

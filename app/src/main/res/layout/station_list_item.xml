@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:paddingLeft="13dip"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/alpha"
+        android:layout_marginRight="5.0dip"
+        android:visibility="gone" />
+<!--    android:src="@drawable/contact_list_icon"-->
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/image_view"
+        android:layout_below="@id/alpha"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_marginTop="6.0dip"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:singleLine="true"
+        android:text="name"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="#212121" />
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/name"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@id/name"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="number"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="#AAAAAA"
+        android:visibility="gone" />
+
+</RelativeLayout>
