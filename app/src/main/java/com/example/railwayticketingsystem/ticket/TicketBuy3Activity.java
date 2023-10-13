@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.railwayticketingsystem.MainActivity;
+import com.example.railwayticketingsystem.OrderActivity;
 import com.example.railwayticketingsystem.R;
 import com.example.railwayticketingsystem.entity.Passanger;
 import com.example.railwayticketingsystem.my.TicketBuy3ChooiceConcat;
@@ -56,7 +57,7 @@ public class TicketBuy3Activity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TicketBuy3Activity.this, MainActivity.class);
+                Intent intent = new Intent(TicketBuy3Activity.this, OrderActivity.class);
                 startActivity(intent);
             }
         });

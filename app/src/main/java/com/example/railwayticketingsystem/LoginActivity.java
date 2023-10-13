@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView tvForgetPassword;
@@ -56,7 +60,9 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                //TODO 将用户名密码发送到后端验证
+//                login();
+
+                //TODO 将用户名密码发送到 后端验证
                 //admin 123456
                 if (!"admin".equals(username) || !"123456".equals(password)) {
                     etUsername.setError("用户名或密码不正确");
@@ -78,6 +84,27 @@ public class LoginActivity extends AppCompatActivity {
         tvForgetPassword.setText(Html.fromHtml("<a href=\"http://www.baidu.com\">忘记密码？</a>"));
         tvForgetPassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
+
+
+    //用于网络登陆
+//    private void login() {
+//        String username = etUsername.getText().toString();
+//        String password = etPassword.getText().toString();
+//
+//        new Thread(){
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    URL url = new URL("http://192.168.126.105:3408/android-server/loginXml?username=admin&password=123456");
+//                    URLConnection urlConnection;
+//                } catch (MalformedURLException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//            }
+//        }.start();
+//    }
 
     //自动登录保存
     private void saveAutoLogin() {

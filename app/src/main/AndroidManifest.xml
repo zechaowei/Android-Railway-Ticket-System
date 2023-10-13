@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 申请网络权限，静态申请，在安装app的时候一次授权，一直使用 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RailwayTicketingSystem"
         tools:targetApi="31">
+        <activity
+            android:name=".OrderActivity"
+            android:exported="false"
+            android:label="支付页面"/>
         <activity
             android:name=".my.TicketBuy3ChooiceConcat"
             android:exported="false" />
@@ -29,7 +35,7 @@
         <activity
             android:name=".my.ConcatEditActivity"
             android:exported="false"
-            android:label="修改联系人"/>
+            android:label="修改联系人" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -42,15 +48,15 @@
         <activity
             android:name=".PasswordActivity"
             android:exported="false"
-            android:label="我的密码"/>
+            android:label="我的密码" />
         <activity
             android:name=".AccountActivity"
             android:exported="false"
-            android:label="我的账户"/>
+            android:label="我的账户" />
         <activity
             android:name=".my.ConcatActivity"
             android:exported="false"
-            android:label="联系人"/>
+            android:label="联系人" />
         <activity
             android:name=".MyActivity"
             android:exported="true"
@@ -76,6 +82,4 @@
         </activity>
     </application>
 
-    <!--  申请网络权限，静态申请，在安装app的时候一次授权，一直使用  -->
-    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
