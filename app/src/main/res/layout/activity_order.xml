@@ -16,6 +16,16 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:id="@+id/countdown_timer"
+        android:layout_below="@+id/tv_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请在10秒内完成订单"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"/>
+
 
     <ImageView
         android:id="@+id/qrCodeBackground"
