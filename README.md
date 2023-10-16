@@ -106,9 +106,9 @@
 </RelativeLayout>
 ```
 
+<img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/202310161526706.png" alt="image-20231016152630652" style="zoom:33%;" /><img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/202310161529683.png" style="zoom:25%;" />
 
 
-<img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/android-%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png" style="zoom:25%;" />
 
 登录的用户名和密码已经“写死”，用户名：”`admin`“，密码：”`123456`“，输入后选择自动登录；
 
@@ -156,7 +156,7 @@
 </LinearLayout>
 ```
 
-
+接下来实现java部分的代码：
 
 ```java
 public class StationActivity extends AppCompatActivity {
@@ -212,7 +212,6 @@ public class StationActivity extends AppCompatActivity {
         });
     }
 
-
     //点击右侧的字母，自动动定位到左侧  字母开始的车站
     private class LetterListViewListener implements
             LetterListView.OnTouchingLetterChangedListener {
@@ -230,7 +229,6 @@ public class StationActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private class ListAdapter extends BaseAdapter {
         private LayoutInflater inflater;
