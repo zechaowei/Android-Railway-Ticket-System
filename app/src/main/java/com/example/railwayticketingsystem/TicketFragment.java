@@ -1,7 +1,14 @@
 package com.example.railwayticketingsystem;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -29,6 +36,9 @@ import com.example.railwayticketingsystem.ticket.TicketBuy2Activity;
 import java.util.Date;
 
 public class TicketFragment extends Fragment implements View.OnClickListener {
+
+    int currentVersion = 2;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,6 +51,8 @@ public class TicketFragment extends Fragment implements View.OnClickListener {
 
     private TextView tvFromStartTime;
 
+    private TextView tvft1, tvft2;
+
     private Button button1;
 
     @Override
@@ -52,8 +64,11 @@ public class TicketFragment extends Fragment implements View.OnClickListener {
         tvStationTo = getActivity().findViewById(R.id.tvStationTo);
         ImageView ivWf = getActivity().findViewById(R.id.ivWf);
         button1 = getActivity().findViewById(R.id.button1);
+        tvft1 = getActivity().findViewById(R.id.tvft1);
+        tvft2 = getActivity().findViewById(R.id.tvft2);
 
         tvFromStartTime = getActivity().findViewById(R.id.tvFromStartTime);
+
 
         ivWf.setOnClickListener(this);
         tvFromStartTime.setOnClickListener(this);
@@ -62,7 +77,36 @@ public class TicketFragment extends Fragment implements View.OnClickListener {
         tvStationTo.setOnClickListener(this);
 
         button1.setOnClickListener(this);
+
+        //获取查询历史
+        queryStationHistory();
     }
+
+    private void queryStationHistory() {
+        String fileName = "my_station";
+        MyStationDataBaseOpenHelper helper = new MyStationDataBaseOpenHelper(getActivity(), fileName, null, currentVersion);
+        SQLiteDatabase readDB = helper.getReadableDatabase();
+        Cursor c = readDB.rawQuery("select id, station_from, station_to from station_log order by id desc", null);
+
+        int row = 1;
+        while (c.moveToNext()) {
+            @SuppressLint("Range") String from = c.getString(c.getColumnIndex("station_from"));
+            @SuppressLint("Range") String to = c.getString(c.getColumnIndex("station_to"));
+            if (row == 1) {
+                tvft1.setText(from + "---" + to);
+            } else {
+                tvft2.setText(from + "---" + to);
+            }
+            if (row >= 2) {
+                break;
+            }
+            row++;
+        }
+        c.close();
+        readDB.close();
+        helper.close();
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -78,7 +122,81 @@ public class TicketFragment extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.button1) {
             Intent intent = new Intent(getActivity(), TicketBuy2Activity.class);
             getActivity().startActivity(intent);
+
+            //将查询的出发城市、到达城市记录到SQLite数据库
+            logStation();
         }
+    }
+
+    private void logStation() {
+//打开数据库连接对象
+//        SQLiteDatabase db = SQLiteDatabase.create(null);
+//        db;//
+//        int currentVersion = 1;
+//        int currentVersion = 2;
+        String fileName = "my_station";
+        MyStationDataBaseOpenHelper helper = new MyStationDataBaseOpenHelper(getActivity(), fileName, null, currentVersion);
+        SQLiteDatabase writeDB = helper.getWritableDatabase();
+
+
+        //将出发城市、到达城市写入SQLite
+        String from = tvStationFrom.getText().toString();
+        String to = tvStationTo.getText().toString();
+//        writeDB.execSQL("insert into station_log (station_from,station_to) values('"+from+"','"+to+"')");
+//        writeDB.execSQL("insert into station_log (station_from,station_to) values(?,? )",   new Object[]{from ,to});
+
+        ContentValues cv = new ContentValues();
+        cv.put("station_from", from);
+        cv.put("station_to", to);
+        writeDB.insert("station_log", null, cv);
+
+//        writeDB.update()
+//        delete from station_log where id = ?
+//        writeDB.delete("station_log"," id = ?" ,new String[]{"1"});
+
+        writeDB.close();
+        helper.close();
+    }
+
+    class MyStationDataBaseOpenHelper extends SQLiteOpenHelper {
+        public MyStationDataBaseOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+            super(context, name, factory, version);
+        }
+
+        public MyStationDataBaseOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, @Nullable DatabaseErrorHandler errorHandler) {
+            super(context, name, factory, version, errorHandler);
+        }
+
+        public MyStationDataBaseOpenHelper(@Nullable Context context, @Nullable String name, int version, @NonNull SQLiteDatabase.OpenParams openParams) {
+            super(context, name, version, openParams);
+        }
+
+        //初始化的时候
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            //需要创建表
+            db.execSQL("CREATE TABLE \"station_log\" (\n" +
+                    "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "\t\"station_from\"\tTEXT,\n" +
+                    "\t\"station_to\"\tTEXT\n" +
+                    ")");
+        }
+
+        //升级的时候触发
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            //根据版本号的变化，不同的版本号，做一些更新、升级的操作（相对数据库）
+
+            Log.d("SQLite", "oldVersion: " + oldVersion);
+            Log.d("SQLite", "newVersion: " + oldVersion);
+        }
+
+        //降级的时候触发
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            Log.d("SQLite", "oldVersion: " + oldVersion);
+            Log.d("SQLite", "newVersion: " + oldVersion);
+        }
+
     }
 
     @Override
@@ -102,7 +220,6 @@ public class TicketFragment extends Fragment implements View.OnClickListener {
         //2023/10/1
         srtTvFromStartTime = srtTvFromStartTime.split(" ")[0];
         String[] time = srtTvFromStartTime.split("/");
-
 
         //选择出发时间
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
@@ -162,5 +279,12 @@ public class TicketFragment extends Fragment implements View.OnClickListener {
 
         //到达城市，向左移动
         tvStationTo.startAnimation(animationRight);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("TicketFragment", "=======onResume=========");
+        queryStationHistory();
     }
 }

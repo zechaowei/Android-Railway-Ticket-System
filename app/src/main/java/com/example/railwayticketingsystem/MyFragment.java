@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.railwayticketingsystem.my.ConcatActivity;
 
-public class MyFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener{
+public class MyFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Button btnConcat;
     private Button btnAccount;
@@ -39,16 +39,15 @@ public class MyFragment extends Fragment implements View.OnClickListener,Adapter
 //        tv.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
 //        tv.setGravity(Gravity.CENTER);
 //        return tv;
-        return inflater.inflate(R.layout.fragment_my,container,false);
+        return inflater.inflate(R.layout.fragment_my, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        btnLogout =getActivity().findViewById(R.id.btnLogout);
+        btnLogout = getActivity().findViewById(R.id.btnLogout);
         lvMain = getActivity().findViewById(R.id.lvMain);
-
 
 
         //定义一个列表的显示内容

@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.get(0).onActivityResult(requestCode, resultCode, data);
     }
 
-    class MyFragmentPagerAdapter extends FragmentPagerAdapter{
+    class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
         //构造器
         public MyFragmentPagerAdapter(@NonNull FragmentManager fm) {
@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
      * 设置点击两次返回键就结束app进程
      */
     long startTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 startTime = current;
             }
         }
-        Toast.makeText(this,"KeyCode:" + keyCode,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "KeyCode:" + keyCode, Toast.LENGTH_SHORT).show();
         return true;
     }
 }

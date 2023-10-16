@@ -32,7 +32,10 @@ public class OrderActivity extends AppCompatActivity {
 
         ImageView qrCode = findViewById(R.id.qrCode);
 
-        Bitmap bitmap = createQRCodeImage("请支付100元", 280, 280);
+//        Bitmap bitmap = createQRCodeImage("计科 魏泽超 202007070503" + "计科 李紫辰 202007070801" + "计科 田彤辉 202007070810", 280, 280);
+
+        String input = "计科 魏泽超 202007070503\n计科 李紫辰 202007070801\n计科 田彤辉 202007070810";
+        Bitmap bitmap = createQRCodeImage(input, 280, 280);
         qrCode.setImageBitmap(bitmap);  //将内存中的数据渲染到ImageView中
 
         final TextView countdownTimer = findViewById(R.id.countdown_timer);
@@ -94,13 +97,13 @@ public class OrderActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish(); // 关闭 OrderActivity
                     // 显示 Toast 提示
-                    Toast.makeText(OrderActivity.this, "订单支付超时", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderActivity.this, "订单支付超时\n请重新支付", Toast.LENGTH_SHORT).show();
                 }
             }
         };
 
         // 第一次启动计时器
-        mHandler.postDelayed(mRunnable, 1000); // 1000毫秒 = 1秒
+        mHandler.postDelayed(mRunnable, 1000);
     }
 
     @Override

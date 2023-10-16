@@ -80,7 +80,6 @@ public class StationActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
 
@@ -202,7 +201,6 @@ public class StationActivity extends AppCompatActivity {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent = getIntent();
             intent.putExtra("name", "");

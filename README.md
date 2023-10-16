@@ -1,13 +1,13 @@
 # Android-Railway-Ticket-System
 ## 参考资料
 
-教学视频：[Android学习](https://www.bilibili.com/video/BV1m34y1h7K3/?spm_id_from=333.788&vd_source=26358c0abc7c39ff8f3329b40c3818d5)
-
-马云gitee仓库地址：https://gitee.com/harbin-university-grade-19/android-helloworld
+> 教学视频：[Android学习](https://www.bilibili.com/video/BV1m34y1h7K3/?spm_id_from=333.788&vd_source=26358c0abc7c39ff8f3329b40c3818d5)
+>
+> 马云gitee仓库地址：https://gitee.com/harbin-university-grade-19/android-helloworld
 
 ---
 
-本人仓库地址：https://github.com/zechaowei/Android-Railway-Ticket-System
+> 本人仓库地址：https://github.com/zechaowei/Android-Railway-Ticket-System
 
 ## 项目介绍
 
@@ -24,6 +24,89 @@
 <img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/android-%E8%BD%AF%E4%BB%B6%E5%90%AF%E5%8A%A8%E7%94%BB%E9%9D%A2.png" style="zoom:25%;" />
 
 ### 登录页面
+
+登陆页面的三个图片自行选择
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp">
+
+    <ImageView
+        android:id="@+id/people"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/icon_people"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+
+    <!--设置用户栏-->
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/people"
+        android:layout_marginTop="80dp"
+        android:hint="用户名"
+        android:textSize="20sp"
+        android:textColor="#FFAD33"
+        android:maxLines="1"
+        android:drawableLeft="@drawable/user"/>
+    <!--密码栏-->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/username"
+        android:layout_marginTop="40dp"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        android:textColor="#FFAD33"
+        android:maxLines="1"
+        android:drawableLeft="@drawable/password"/>
+
+
+    <!--登录按钮-->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginTop="80dp"
+        android:text="登录"
+        android:background="@drawable/btn_press_blue"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"/>
+
+    <!--自动登录-->
+    <CheckBox
+        android:id="@+id/autoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLogin"
+        android:layout_marginTop="30dp"
+        android:text="自动登录"
+        android:textSize="15sp" />
+
+    <!--忘记密码-->
+    <TextView
+        android:id="@+id/tvForgetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码?"
+        android:textColor="#0000FF"
+        android:textSize="15sp"
+        android:layout_alignRight="@+id/btnLogin"
+        android:layout_alignBaseline="@+id/autoLogin" />
+
+</RelativeLayout>
+```
+
+
 
 <img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/android-%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2.png" style="zoom:25%;" />
 
@@ -43,6 +126,223 @@
 
 ##### 选择车站
 
+首先设定布局文件
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ticket.StationActivity">
+
+    <ListView
+        android:id="@+id/station_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#E8E8E8"
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+        android:scrollbars="none" />
+
+    <com.example.railwayticketingsystem.ticket.LetterListView
+        android:id="@+id/letterListView"
+        android:layout_height="match_parent"
+        android:layout_width="30dp">
+
+    </com.example.railwayticketingsystem.ticket.LetterListView>
+
+</LinearLayout>
+```
+
+
+
+```java
+public class StationActivity extends AppCompatActivity {
+    private BaseAdapter adapter;
+    private ListView mStationListView;
+    private TextView overlay;
+    private LetterListView letterListView;
+    private HashMap<String, Integer> alphaIndexer;
+    private String[] sections;
+    private Handler handler;
+    private OverlayThread overlayThread;
+    private ArrayList<Station> stations;
+
+  
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //去掉标题行
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        setContentView(R.layout.activity_station);
+        mStationListView = findViewById(R.id.station_list);
+        LetterListView letterListView = findViewById(R.id.letterListView);
+        //当字母有变化了，监听一下
+        letterListView.setOnTouchingLetterChangedListener(new LetterListViewListener());
+
+        //车站的数据
+        stations = StationUtils.getAllStations(this);
+        
+        
+        alphaIndexer = new HashMap<String, Integer>();
+        handler = new Handler();
+        overlayThread = new OverlayThread();
+
+        initOverlay();
+
+      	//显示一堆车站
+        adapter = new ListAdapter(this, stations);
+        mStationListView.setAdapter(adapter);
+
+        mStationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Station station = stations.get(position);
+                String name = station.getStation_name();
+                Toast.makeText(StationActivity.this, "name: "+name, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.putExtra("name",name);
+                setResult(300,intent);
+                finish();
+            }
+        });
+    }
+
+
+    //点击右侧的字母，自动动定位到左侧  字母开始的车站
+    private class LetterListViewListener implements
+            LetterListView.OnTouchingLetterChangedListener {
+
+        //选中的字母
+        @Override
+        public void onTouchingLetterChanged(final String s) {
+            if (alphaIndexer.get(s) != null) {
+                int position = alphaIndexer.get(s);
+                mStationListView.setSelection(position);//定位字母对应的开始车站的位置
+                overlay.setText(sections[position]);
+                overlay.setVisibility(View.VISIBLE);
+                handler.removeCallbacks(overlayThread);
+                handler.postDelayed(overlayThread, 1500);
+            }
+        }
+    }
+
+
+    private class ListAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+        private List<Station> list;
+
+        public ListAdapter(Context context, List<Station> list) {
+
+            this.inflater = LayoutInflater.from(context);
+            this.list = list;
+            alphaIndexer = new HashMap<String, Integer>();
+            sections = new String[list.size()];
+
+            for (int i = 0; i < list.size(); i++) {
+                // 当前汉语拼音首字母
+                String currentStr = list.get(i).getSort_order();
+                // 上一个汉语拼音首字母，如果不存在为" "
+                String previewStr = (i - 1) >= 0 ? list.get(i - 1)
+                        .getSort_order() : " ";
+                if (!previewStr.equals(currentStr)) {
+                    String name = list.get(i).getSort_order();
+                    alphaIndexer.put(name, i);
+                    sections[i] = name;
+                }
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater
+                        .inflate(R.layout.station_list_item, null);
+                holder = new ViewHolder();
+                holder.alpha = (TextView) convertView.findViewById(R.id.alpha);
+                holder.name = (TextView) convertView.findViewById(R.id.name);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.name.setText(list.get(position).getStation_name());
+            String currentStr = list.get(position).getSort_order();
+            String previewStr = (position - 1) >= 0 ? list.get(position - 1) .getSort_order() : " ";
+            if (!previewStr.equals(currentStr)) {
+                holder.alpha.setVisibility(View.VISIBLE);
+                holder.alpha.setText(currentStr);
+            } else {
+                holder.alpha.setVisibility(View.GONE);
+            }
+            return convertView;
+        }
+
+        private class ViewHolder {
+            TextView alpha;
+            TextView name;
+        }
+      
+    }
+
+    // 初始化汉语拼音首字母弹出提示框(TextView)
+    private void initOverlay() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        overlay = (TextView) inflater.inflate(R.layout.station_overlay, null);
+        overlay.setVisibility(View.INVISIBLE);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_APPLICATION,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                        | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                PixelFormat.TRANSLUCENT);
+        WindowManager windowManager = (WindowManager) this
+                .getSystemService(Context.WINDOW_SERVICE);
+        windowManager.addView(overlay, lp);
+
+    }
+
+    private class OverlayThread implements Runnable {
+        @Override
+        public void run() {
+            overlay.setVisibility(View.GONE);
+        }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = getIntent();
+            intent.putExtra("name", "");
+            setResult(200, intent);
+
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+}
+```
+
 实现了出发城市和到达城市之间的**动画播放**，并且点击可以选择城市。
 
 <img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/android-%E9%80%89%E6%8B%A9%E5%9F%8E%E5%B8%82.png" style="zoom:25%;" />
@@ -50,6 +350,37 @@
 支持最右边侧面根据字母大写选择符合条件的城市。
 
 ##### 选择日期
+
+```java
+private void selectTime() {
+    String srtTvFromStartTime = tvFromStartTime.getText().toString();
+    //2023/10/1
+    srtTvFromStartTime = srtTvFromStartTime.split(" ")[0];
+    String[] time = srtTvFromStartTime.split("/");
+
+
+    //选择出发时间
+    DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+            Date selectDate = new Date(year - 1900, month, dayOfMonth);
+            String weekday = DateUtils.formatDateTime(getActivity(), selectDate.getTime(), DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY);
+            Toast.makeText(getActivity(), "weekday:" + weekday, Toast.LENGTH_SHORT).show();
+            Log.d("weekday", weekday);
+
+            //选择日期后，调用此事件
+            tvFromStartTime.setText("" + year + "/" + (month + 1) + "/" + dayOfMonth + " " + weekday);
+        }
+    }, Integer.parseInt(time[0]),
+            Integer.parseInt(time[1]) - 1,//月份从0开始
+            Integer.parseInt(time[2]));
+
+    dialog.show();
+}
+```
+
+
 
 <img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/android-%E9%80%89%E6%8B%A9%E6%97%A5%E6%9C%9F.png" style="zoom:25%;" />
 
@@ -79,13 +410,19 @@
 
 ⚠️：<font color = red>**这里并未实现订单主页面的功能，该项目中并未实现该页面，需要读者后续自己实现，不过视频中有讲解其UI设计。**</font>
 
-##### 历史查询功能
 
-自己并未实现，但是视频教学在最后部分有讲解，需要的观看视频即可。
+
+
+
+
 
 ##### 其他
 
 最后一个图片只是因为自己选择的虚拟机比较大，UI设计根据视频操作来后，UI界面不美观，自行添加图片。
+
+---
+
+
 
 
 
@@ -137,6 +474,79 @@
 
 
 
+
+
+## 动画的实现
+
+```java
+private void startTranslate() {
+    int duration = 500;
+    //启动一个动画
+    TranslateAnimation animationLeft = new TranslateAnimation(0, 320, 0, 0);
+    //动画的速度
+    animationLeft.setInterpolator(new DecelerateInterpolator());
+    //动画持续的时间
+    animationLeft.setDuration(duration);
+    //出发城市，向右移动
+    tvStationFrom.startAnimation(animationLeft);
+
+    //启动一个动画
+    TranslateAnimation animationRight = new TranslateAnimation(0, -320, 0, 0);
+    //动画的速度
+    animationRight.setInterpolator(new DecelerateInterpolator());
+    //动画持续的时间
+    animationRight.setDuration(duration);
+
+    animationRight.setAnimationListener(new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+        }
+
+        //当动画执行完成，需要交换出发城市、到达城市
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            CharSequence temp = tvStationFrom.getText();
+            tvStationFrom.setText(tvStationTo.getText());
+            tvStationTo.setText(temp);
+        }
+    });
+
+    //到达城市，向左移动
+    tvStationTo.startAnimation(animationRight);
+}
+```
+
+并在`onClick`函数中调用该方法：
+
+```java
+@Override
+public void onClick(View view) {
+    //交换站点
+    if (view.getId() == R.id.ivWf) {
+        startTranslate();		//调用动画函数
+    } else if (view.getId() == R.id.tvFromStartTime) {
+        selectTime();
+    } else if (view.getId() == R.id.tvStationFrom || view.getId() == R.id.tvStationTo) {
+        Intent intent = new Intent(getActivity(), StationActivity.class);
+        getActivity().startActivityForResult(intent, view.getId());
+    } else if (view.getId() == R.id.button1) {
+        Intent intent = new Intent(getActivity(), TicketBuy2Activity.class);
+        getActivity().startActivity(intent);
+
+        //将查询的出发城市、到达城市记录到SQLite数据库
+        logStation();
+    }
+}
+```
+
+
+
+
+
 ## 二维码实现
 
 > 参考文章：[Android利用zxing生成二维码](https://blog.csdn.net/weixin_43670802/article/details/102776704?ops_request_misc=&request_id=&biz_id=102&utm_term=Android%E5%88%A9%E7%94%A8zxing%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-102776704.142^v96^control&spm=1018.2226.3001.4187)
@@ -151,7 +561,7 @@
 
 
 
-#### 依赖
+添加依赖：https://mvnrepository.com/artifact/com.google.zxing/core/3.5.0
 
 ```
 // https://mvnrepository.com/artifact/com.google.zxing/core
@@ -277,4 +687,79 @@ public class OrderActivity extends AppCompatActivity {
 </shape>
 ```
 
-<img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/202310132101719.png" style="zoom: 25%;" />
+<img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/202310161507975.png" alt="image-20231016150758937" style="zoom:33%;" />
+
+
+
+
+
+## 查询历史功能
+
+- [x] 功能是否完成
+
+```java
+private void queryStationHistory() {
+    String fileName = "my_station";
+    MyStationDataBaseOpenHelper helper = new MyStationDataBaseOpenHelper(getActivity(), fileName, null, currentVersion);
+    SQLiteDatabase readDB = helper.getReadableDatabase();
+    Cursor c = readDB.rawQuery("select id, station_from, station_to from station_log order by id desc", null);
+
+    int row = 1;
+    while (c.moveToNext()) {
+        @SuppressLint("Range") String from = c.getString(c.getColumnIndex("station_from"));
+        @SuppressLint("Range") String to = c.getString(c.getColumnIndex("station_to"));
+        if (row == 1) {
+            tvft1.setText(from + "---" + to);
+        } else {
+            tvft2.setText(from + "---" + to);
+        }
+        if (row >= 2){
+            break;
+        }
+        row++;
+    }
+    c.close();
+    readDB.close();
+    helper.close();
+}
+```
+
+注意：需要在全局调用onResume函数，否则点击查询的时候，历史查询不会及时更新（此部分需要了解android的生命周期）
+
+```java
+@Override
+public void onResume() {
+    super.onResume();
+    Log.d("TicketFragment", "=======onResume=========");
+    queryStationHistory();
+}
+```
+
+<img src="https://raw.githubusercontent.com/Anson-zechaoWei/photos_blog/main/img/202310161500867.png" style="zoom:25%;" />
+
+
+
+当点击“天津”和“昂昂溪”后，点击查询后，退出后续界面，可以在查询历史页面看见之前点击的查询界面。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
