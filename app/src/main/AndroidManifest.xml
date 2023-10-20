@@ -14,9 +14,12 @@
         android:theme="@style/Theme.RailwayTicketingSystem"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrderActivity"
             android:exported="false"
-            android:label="支付页面"/>
+            android:label="支付页面" />
         <activity
             android:name=".my.TicketBuy3ChooiceConcat"
             android:exported="false" />

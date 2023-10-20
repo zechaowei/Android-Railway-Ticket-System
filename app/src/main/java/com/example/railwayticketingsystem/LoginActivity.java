@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,6 +23,8 @@ import java.net.URLConnection;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
+
+    private Button btnRegister;
     private TextView tvForgetPassword;
 
     private TextView etUsername;
@@ -39,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //找到按钮
         btnLogin = findViewById(R.id.btnLogin);
+        //注册按钮
+        btnRegister = findViewById(R.id.bntRegister);
+
         tvForgetPassword = findViewById(R.id.tvForgetPassword);
         etUsername = findViewById(R.id.username);
         etPassword = findViewById(R.id.password);
@@ -77,6 +83,16 @@ public class LoginActivity extends AppCompatActivity {
                 //关闭当前Activity
                 finish();
                 //使用意图启动Activity
+                startActivity(intent);
+            }
+        });
+
+        //注册页面
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Toast.makeText(LoginActivity.this, "跳转到注册页面",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
