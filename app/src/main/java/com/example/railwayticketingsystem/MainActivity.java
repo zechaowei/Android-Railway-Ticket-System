@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 startTime = current;
             }
         }
-        Toast.makeText(this, "KeyCode:" + keyCode, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "再按一次退出铁路12306", Toast.LENGTH_SHORT).show();
         return true;
     }
 }

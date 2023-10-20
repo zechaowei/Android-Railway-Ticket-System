@@ -114,8 +114,8 @@ public class LoginActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
 
             SharedPreferences sp = getSharedPreferences("AUTO_LOGIN", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
 
+            SharedPreferences.Editor editor = sp.edit();
             editor.putString("username", username);
             editor.putString("password", password);
 
