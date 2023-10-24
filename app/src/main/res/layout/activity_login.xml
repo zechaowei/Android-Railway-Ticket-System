@@ -2,8 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingRight="16dp"
     android:paddingLeft="16dp">
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="欢迎来到 铁路12306      欢迎来到 铁路12306        欢迎来到 铁路12306"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="#000000"
+        android:background="@drawable/bg_paomadeng"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/icon_laba"/>
+
+
+
+
 
     <ImageView
         android:id="@+id/people"
@@ -11,7 +34,7 @@
         android:layout_height="100dp"
         android:src="@drawable/icon_people"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="80dp"/>
 
     <!--设置用户栏-->
     <EditText

@@ -2,6 +2,7 @@ package com.example.railwayticketingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -31,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView etPassword;
     private CheckBox autoLogin;
 
+    private TextView tvWelcome;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,27 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.username);
         etPassword = findViewById(R.id.password);
         autoLogin = findViewById(R.id.autoLogin);
+        tvWelcome = findViewById(R.id.tvWelcome);
+        tvWelcome.requestFocus();
+
+        //点击其他组件时，保持跑马灯不变
+        etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus){
+                    tvWelcome.requestFocus();
+                }
+            }
+        });
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus){
+                    tvWelcome.requestFocus();
+                }
+            }
+        });
+
         //给按钮添加点击事件
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
         //设置点击忘记密码时跳转到对应网站，例如http://www.baidu.com
         tvForgetPassword.setText(Html.fromHtml("<a href=\"http://www.baidu.com\">忘记密码？</a>"));
         tvForgetPassword.setMovementMethod(LinkMovementMethod.getInstance());
+
+
     }
 
 
@@ -139,5 +167,13 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Log.d("LoginActivity", "非自动登录");
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //返回跑马灯页面时，保证跑马灯继续运行
+        TextView tvWelcome = findViewById(R.id.tvWelcome);
+        tvWelcome.setSelected(true);
     }
 }
